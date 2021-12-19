@@ -91,18 +91,15 @@ def execute_commands(commands: List[Command], wires: DefaultDict[str, int]) -> N
                         wires[dst] = a & b
                     else:
                         wires[dst] = a | b
-                case 'LSHIFT':
+                case 'LSHIFT' | 'RSHIFT':
                     a, b = args
                     if a not in wires:
                         continue
 
-                    wires[dst] = wires[a] << int(b)
-                case 'RSHIFT':
-                    a, b = args
-                    if a not in wires:
-                        continue
-
-                    wires[dst] = wires[a] >> int(b)
+                    if instruction == 'LSHIFT':
+                        wires[dst] = wires[a] << int(b)
+                    else:
+                        wires[dst] = wires[a] >> int(b)
 
             used_commands.add(i)
 
