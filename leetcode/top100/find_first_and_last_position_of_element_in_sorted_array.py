@@ -26,6 +26,7 @@ class Solution:
         right = len(nums) - 1
 
         while left < right:
+            # this helps us bias mid
             mid = (left + right) // 2 + 1
 
             if nums[mid] > target:
