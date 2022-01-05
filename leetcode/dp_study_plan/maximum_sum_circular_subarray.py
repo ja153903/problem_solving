@@ -3,6 +3,8 @@ from typing import List
 
 class Solution:
     def maxSubarraySumCircular(self, nums: List[int]) -> int:
+        # this problem requires a modification of Kadane's algorithm
+        # TODO: Figure out why we need to do this by reading the discussion board again:
         total, max_sum, cur_max, min_sum, cur_min = 0, nums[0], 0, nums[0], 0
 
         for num in nums:
