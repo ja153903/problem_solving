@@ -29,10 +29,10 @@ Note that getRandom will be called a lot.
 Approach 1:
     We aren't adding any more values into the linked list
     We can uniformly sample these nodes once we load them into some list
-    This does not work
 
 Approach 2:
     Resevoir Sampling (Figure out how this works)
+    https://leetcode.com/problems/linked-list-random-node/discuss/85659/Brief-explanation-for-Reservoir-Sampling
 
 
 ========
@@ -40,7 +40,8 @@ Analysis
 ========
 """
 
-class DoesNotWorkAsSolution:
+
+class LinearSpaceSolution:
     def __init__(self, head: Optional[ListNode]):
         self.nodes = []
 
@@ -49,13 +50,23 @@ class DoesNotWorkAsSolution:
             head = head.next
 
     def getRandom(self) -> int:
-        return self.nodes[int(random.uniform(0, len(self.nodes)))].val
+        return self.nodes[int(random.random() * len(self.nodes))].val
 
 
 class Solution:
     def __init__(self, head: Optional[ListNode]):
-        pass
+        self.head = head
 
     def getRandom(self) -> int:
-        pass
+        curr = self.head
+        ans = self.head
+        i = 1
 
+        while curr:
+            if random.random() < 1 / i:
+                ans = curr
+
+            curr = curr.next
+            i += 1
+
+        return ans.val
