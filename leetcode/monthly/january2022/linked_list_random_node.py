@@ -31,13 +31,30 @@ Approach 1:
     We can uniformly sample these nodes once we load them into some list
 
 Approach 2:
-    Resevoir Sampling (Figure out how this works)
+    Reservoir Sampling (Figure out how this works)
     https://leetcode.com/problems/linked-list-random-node/discuss/85659/Brief-explanation-for-Reservoir-Sampling
 
+    The basic idea here is that the problem we want to solve is the following:
+        Choose k items from n total items with equal probability i.e. k/n
+
+        To do this, we fill up a reservoir array with k elements
+        We then pick the (k+1)th item with probability k/k+1
+        In general, we pick the (k+i)th item with probability k/k+i
+        We do this until k+i becomes n.
+
+        Once we do this, we know have that these k items are randomly sampled with prob k/n
+    
+    In our case, k = 1
+
+    So the solution should just be to initialize the reservoir as the head node.
+    Then we should just iterate through the entire list (to sample all of it) so that
+    we have uniform probability.
 
 ========
 Analysis
 ========
+
+This algorithm runs in O(n) time and O(1) space for getRandom()
 """
 
 
