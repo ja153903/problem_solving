@@ -23,6 +23,11 @@ Recursive approach:
 
     However, this solution will timeout.
 
+DP Approach:
+    How can we optimize the above recursion?
+
+    We can let dp[i] for some i in [0, len(s) -1], be the ability to construct
+    a string up to and not including index i
 """
 
 from typing import List
@@ -30,7 +35,17 @@ from typing import List
 
 class Solution:
     def wordBreak(self, s: str, word_dict: List[str]) -> bool:
-        pass
+        word_set = set(word_dict)
+        dp = [False] * (len(s) + 1)
+        dp[0] = True
+
+        for i in range(1, len(s) + 1):
+            for j in range(0, i):
+                if dp[j] and s[j:i] in word_set:
+                    dp[i] = True
+                    break
+
+        return dp[-1]
 
     def word_break_recursive(self, s: str, word_dict: List[str]) -> bool:
         word_set = set(word_dict)
