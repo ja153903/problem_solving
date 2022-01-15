@@ -18,7 +18,6 @@ Approach 1:
     is in the set, then we return true
 
     This solution takes O(n) time and space
-
 """
 
 from typing import List
@@ -35,4 +34,3 @@ class Solution:
             seen.add(num)
 
         return False
-        
