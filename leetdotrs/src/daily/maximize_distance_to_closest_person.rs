@@ -26,7 +26,8 @@ impl Solution {
 
         for (i, &val) in seats.iter().enumerate() {
             if val > 0 {
-                res = cmp::max(res, if last < 0 { i as i32 } else { (i as i32 - last) / 2 });
+                let candidate: i32 = if last < 0 { i as i32 } else { (i as i32 - last) / 2 };
+                res = cmp::max(res, candidate);
                 last = i as i32;
             }
         }
