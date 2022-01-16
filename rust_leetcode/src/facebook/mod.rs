@@ -1,6 +1,0 @@
-mod binary_tree_vertical_order_traversal;
-mod buildings_with_ocean_view;
-mod dot_product_of_two_sparse_vectors;
-mod minimum_remove_to_make_valid_parenthesis;
-mod range_sum_of_bst;
-mod valid_palindrome_ii;
