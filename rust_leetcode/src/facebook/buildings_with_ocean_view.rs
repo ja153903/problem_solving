@@ -16,7 +16,8 @@ struct Solution;
 // sorted in increasing order.
 //
 // === Approach ===
-//
+// The idea here is that we want to go from the last index and work our way backwards.
+// We want to incrementally update the local_max
 impl Solution {
     pub fn find_buildings(heights: Vec<i32>) -> Vec<i32> {
         if heights.is_empty() {
