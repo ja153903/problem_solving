@@ -26,7 +26,11 @@ impl Solution {
 
         for (i, &val) in seats.iter().enumerate() {
             if val > 0 {
-                let candidate: i32 = if last < 0 { i as i32 } else { (i as i32 - last) / 2 };
+                let candidate: i32 = if last < 0 {
+                    i as i32
+                } else {
+                    (i as i32 - last) / 2
+                };
                 res = cmp::max(res, candidate);
                 last = i as i32;
             }
@@ -38,11 +42,12 @@ impl Solution {
     pub fn failed_solution(seats: Vec<i32>) -> i32 {
         let n = seats.len();
 
-        let idxs: Vec<usize> = seats.
-            iter().
-            enumerate().
-            filter(|(_, &val)| val == 1).
-            map(|(i, _)| i).collect();
+        let idxs: Vec<usize> = seats
+            .iter()
+            .enumerate()
+            .filter(|(_, &val)| val == 1)
+            .map(|(i, _)| i)
+            .collect();
         let m = idxs.len();
 
         if m == 1 {
