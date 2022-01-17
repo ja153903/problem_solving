@@ -1,8 +1,10 @@
+#include <algorithm>
+#include <cassert>
 #include <iostream>
 #include <utility>
 #include <vector>
-#include <algorithm>
-#include <cassert>
+
+typedef std::pair<std::vector<int>, std::vector<int>> TestCase;
 
 class Solution {
 public:
@@ -26,13 +28,12 @@ public:
   }
 };
 
-typedef std::pair<std::vector<int>, std::vector<int>> TestCase;
-
 int main() {
   Solution s;
 
   std::vector<TestCase> test_cases;
-  test_cases.push_back(std::make_pair(std::vector<int>{4, 2, 3, 1}, std::vector<int>{0, 2, 3}));
+  test_cases.push_back(
+      std::make_pair(std::vector<int>{4, 2, 3, 1}, std::vector<int>{0, 2, 3}));
 
   for (auto c : test_cases) {
     auto res = s.findBuildings(c.first);
