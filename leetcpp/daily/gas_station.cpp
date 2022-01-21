@@ -112,8 +112,8 @@ int main() {
   std::vector<TestCase> test_cases;
   test_cases.push_back(TestCase(std::vector<int>{1, 2, 3, 4, 5},
                                 std::vector<int>{3, 4, 5, 1, 2}, 3));
-  test_cases.push_back(TestCase(std::vector<int>{2, 3, 4},
-                                std::vector<int>{3, 4, 3}, -1));
+  test_cases.push_back(
+      TestCase(std::vector<int>{2, 3, 4}, std::vector<int>{3, 4, 3}, -1));
 
   for (auto test_case : test_cases) {
     auto result = s.canCompleteCircuit(test_case.gas, test_case.cost);
