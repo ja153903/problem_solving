@@ -1,57 +1,45 @@
-# TODO: This question is hard:
-# I get it conceptually, but this aint fun
-from typing import List, Tuple
-
-# Remember this template for UnionFind problems
-class UnionFind:
-    def __init__(self, nodes: int):
-        self.id = [i for i in range(nodes)]
-        self.rank = [0] * nodes
-        self.count = nodes
-
-    def find(self, i: int) -> int:
-        while i != self.id[i]:
-            self.id[i] = self.id[self.id[i]]
-            i = self.id[i]
-
-        return i
-
-    def union(self, p: int, q: int) -> None:
-        i = self.find(p)
-        j = self.find(q)
-
-        if i == j:
-            return
-
-        if self.rank[i] > self.rank[j]:
-            self.id[i] = j
-        else:
-            self.id[j] = i
-            if self.rank[i] == self.rank[j]:
-                self.rank[i] += 1
-
-        self.count -= 1
+from typing import List
+from collections import defaultdict
 
 
 class Solution:
     def accountsMerge(self, accounts: List[List[str]]) -> List[List[str]]:
-        nodes: List[Tuple[str, str]] = []
+        names = defaultdict()
+        graph = defaultdict(set)
 
         for account, *emails in accounts:
             for email in emails:
-                nodes.append((account, email))
-        
-        return []
+                graph[email].add(emails[0])
+                graph[emails[0]].add(email)
+                names[email] = account
+
+        comps, seen, i = defaultdict(list), set(), 0
+
+        def dfs(node, i):
+            comps[i].append(node)
+            seen.add(node)
+            for neib in graph[node]:
+                if neib not in seen:
+                    dfs(neib, i)
+
+        for email in graph:
+            if email not in seen:
+                dfs(email, i)
+                i += 1
+
+        return [[names[val[0]]] + sorted(val) for _, val in comps.items()]
 
 
 if __name__ == "__main__":
     s = Solution()
 
-    s.accountsMerge(
-        [
-            ["John", "johnsmith@mail.com", "john_newyork@mail.com"],
-            ["John", "johnsmith@mail.com", "john00@mail.com"],
-            ["Mary", "mary@mail.com"],
-            ["John", "johnnybravo@mail.com"],
-        ]
+    print(
+        s.accountsMerge(
+            [
+                ["John", "johnsmith@mail.com", "john_newyork@mail.com"],
+                ["John", "johnsmith@mail.com", "john00@mail.com"],
+                ["Mary", "mary@mail.com"],
+                ["John", "johnnybravo@mail.com"],
+            ]
+        )
     )
