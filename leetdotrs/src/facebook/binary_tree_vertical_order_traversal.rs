@@ -41,7 +41,6 @@ struct QueueNode {
 
 impl Solution {
     pub fn vertical_order(root: Option<Rc<RefCell<TreeNode>>>) -> Vec<Vec<i32>> {
-        let mut level: i32 = 0;
         let mut queue: VecDeque<QueueNode> = VecDeque::new();
         let mut mp: BTreeMap<i32, Vec<i32>> = BTreeMap::new();
 
@@ -60,7 +59,7 @@ impl Solution {
                 let QueueNode { node, level } = q_node;
 
                 if let Some(node) = node {
-                    if let Some(mut v) = mp.get_mut(&level) {
+                    if let Some(v) = mp.get_mut(&level) {
                         v.push(node.borrow().val);
                     } else {
                         mp.insert(level, vec![node.borrow().val]);
