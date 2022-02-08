@@ -1,67 +1,34 @@
 /**
- * TODO: Did not finish this problem
  * @param {number} a
  * @param {number} b
  * @param {number} c
  * @return {string}
  */
 const longestDiverseString = function (a, b, c) {
-  const maxLen = a + b + c;
-  const result = new Array(maxLen).fill("*");
-
-  const values = [
-    { value: "a", count: a },
-    { value: "b", count: b },
-    { value: "c", count: c },
-  ];
-  values.sort((a, b) => b.count - a.count);
-
-  let j = 0;
-
-  for (const { value, count } of values) {
-    let i = 0;
-
-    while (i < count) {
-      if (j >= maxLen) {
-        break;
-      }
-
-      if (result[j] !== '*') {
-        j += 1;
-        continue;
-      }
-
-      if (
-        j >= 2 &&
-        result[j - 2] === result[j - 1] &&
-        value === result[j - 1]
-      ) {
-        // if the previous two indices were the same,
-        // then we should update j
-        j += 1;
-        continue;
-      }
-
-      result[j] = value;
-      j += 1;
-      i += 1;
+  function helper(a, b, c, aa = "a", bb = "b", cc = "c") {
+    if (a < b) {
+      return helper(b, a, c, bb, aa, cc);
     }
 
-    for (let i = 0; i < result.length; i++) {
-      if (result[i] === "*") {
-        j = i;
-        break;
-      }
+    if (b < c) {
+      return helper(a, c, b, aa, cc, bb);
     }
+
+    if (b === 0) {
+      return new Array(Math.min(2, a)).fill(aa).join("");
+    }
+
+    const useA = Math.min(2, a);
+    const useB = a - useA >= b ? 1 : 0;
+
+    return [
+      ...new Array(useA).fill(aa),
+      ...new Array(useB).fill(bb),
+      ...helper(a - useA, b - useB, c, aa, bb, cc),
+    ].join("");
   }
 
-  const star = result.findIndex(ch => ch === "*");
-
-  if (star === -1) {
-    return result.join("");
-  }
-
-  return result.join("").substring(0, star);
+  return helper(a, b, c);
 };
 
 console.log(longestDiverseString(1, 1, 7));
