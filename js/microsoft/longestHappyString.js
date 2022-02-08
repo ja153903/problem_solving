@@ -26,6 +26,11 @@ const longestDiverseString = function (a, b, c) {
         break;
       }
 
+      if (result[j] !== '*') {
+        j += 1;
+        continue;
+      }
+
       if (
         j >= 2 &&
         result[j - 2] === result[j - 1] &&
@@ -50,8 +55,15 @@ const longestDiverseString = function (a, b, c) {
     }
   }
 
-  return result.filter((ch) => ch !== "*").join("");
+  const star = result.findIndex(ch => ch === "*");
+
+  if (star === -1) {
+    return result.join("");
+  }
+
+  return result.join("").substring(0, star);
 };
 
-//console.log(longestDiverseString(1, 1, 7));
+console.log(longestDiverseString(1, 1, 7));
 console.log(longestDiverseString(7, 1, 0));
+console.log(longestDiverseString(2, 4, 1));
