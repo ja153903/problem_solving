@@ -1,4 +1,16 @@
 /**
+  * The intuition behind this problem is to use the 
+  * assumption that a >= b >= c
+  * This assumption simplifies our approach
+  * as the idea is that we take 2 of characters from the largest bucket
+  * and append them to our result string. Every time we find that
+  * our largest bucket has changed, we recursively call the function with
+  * the values swapped as to provide the necessary cushion
+  * if our medium value b is empty, then this means we can add the rest of the largest value
+  * available in a
+  *
+  * otherwise, we need to make sure that we provide 2 of the largest value and a buffer value of 
+  * b in the middle then recursively search for more values to introduce into the result string.
  * @param {number} a
  * @param {number} b
  * @param {number} c
