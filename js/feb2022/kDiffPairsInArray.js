@@ -11,16 +11,23 @@ const findPairs = function (nums, k) {
   let result = 0;
   const counter = new Map();
 
+  // get a frequency of all the values in the list
   for (const num of nums) {
     counter.set(num, (counter.get(num) ?? 0) + 1);
   }
 
+  // go over each key
   for (const [key, value] of counter) {
+    // if k is 0, then we should count all the unique pairs
+    // of values
     if (k === 0) {
       if (value >= 2) {
         result++;
       }
     } else {
+      // if k is greater than 0, then we should check if
+      // the current key + k is in the map
+      // because if it exists, then we have the pair
       if (counter.has(key + k)) {
         result++;
       }
